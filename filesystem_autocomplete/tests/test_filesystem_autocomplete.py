@@ -1,11 +1,6 @@
-from filesystem_autocomplete import walk_directory
+import os
 
-dir_structure = {
-    "dir1": ["iamafile.txt", "file2.what", "102.hmm"],
-    "dir2": [
-        {"dir3": ["another_level", "file3", "problem-file"]},
-    ],
-}
+from filesystem_autocomplete import walk_directory
 
 
 def test_walk_directory(tmp_path):
@@ -23,9 +18,6 @@ def test_walk_directory(tmp_path):
 
     d4 = d3 / "level_2_dir1"
     d4.mkdir()
-
-    d2fi = d2 / "problem-file.whatever.txt"
-    d2fi.write_text("test")
 
     for fi in "123":
         d3fi = d3 / f"test_file_{fi}.txt"
@@ -48,5 +40,32 @@ def test_walk_directory(tmp_path):
         thepath = getattr(dir_info.level_1_dir2, fname).filepath
         assert thepath == str(d3 / fname_orig)
 
+        thisfile = getattr(dir_info.level_1_dir2, fname)
+        disp_name = thisfile.__repr__()
+        assert os.path.basename(disp_name) == fname_orig
+
+        disp_str = str(thisfile)
+        assert os.path.basename(disp_str) == fname_orig
+
     thepath = dir_info.level_1_dir2.dirpath
     assert thepath == str(d3)
+
+    dir_contents = dir_info.level_1_dir2.__repr__()
+    assert "Directory" in dir_contents
+    assert "test_file" in dir_contents
+
+
+def test_problem_files(tmp_path):
+    d = tmp_path / "top_level"
+    d.mkdir()
+    dfi = d / "problem-file.whatever.txt"
+    dfi.write_text("test")
+    dfi = d / "0problemfile.whatever.txt"
+    dfi.write_text("test")
+    dir_info = walk_directory(str(d))
+
+    fname = os.path.basename(dir_info._0problemfile_whatever_txt.filepath)
+    assert fname == "0problemfile.whatever.txt"
+
+    fname = os.path.basename(dir_info.problem_file_whatever_txt.filepath)
+    assert fname == "problem-file.whatever.txt"
