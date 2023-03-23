@@ -64,6 +64,10 @@ class DirectoryInfo(FileLikeHelper):
 
         return finfi
 
+    @property
+    def dirpath(self):
+        return self._fullpath
+
 
 def walk_directory(starting_directory, max_levels=10):
     return DirectoryInfo(

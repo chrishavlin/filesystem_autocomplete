@@ -19,5 +19,5 @@ classifiers = [
 
 
 [project.urls]
-"Homepage" = "https://github.com/data-exp-lab/yt_aspect"
-"Bug Tracker" = "https://github.com/data-exp-lab/yt_aspect/issues"
+"Homepage" = "https://github.com/chrishavlin/filesystem_autocomplete"
+"Bug Tracker" = "https://github.com/chrishavlin/filesystem_autocomplete/issues"
