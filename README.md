@@ -1,7 +1,9 @@
 # filesystem_autocomplete
 
 [![PyPI](https://img.shields.io/pypi/v/filesystem_autocomplete.svg?color=green)](https://pypi.org/project/filesystem_autocomplete)
-[![tests](https://github.com/chrishavlin/filesystem_autocomplete/workflows/test/badge.svg)](https://github.com/chrishavlin/filesystem_autocomplete/actions)
+
+![tests](https://github.com/github/docs/actions/workflows/test.yml/badge.svg)
+
 [![codecov](https://codecov.io/gh/chrishavlin/filesystem_autocomplete/branch/main/graph/badge.svg)](https://codecov.io/gh/chrishavlin/filesystem_autocomplete)
 
 utility for recursively mapping files and subdirectories 
