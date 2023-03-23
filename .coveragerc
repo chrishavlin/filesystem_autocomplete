@@ -1,0 +1,5 @@
+[run]
+source = filesystem_autocomplete
+
+[report]
+fail_under = 98
