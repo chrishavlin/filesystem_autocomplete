@@ -1,18 +1,18 @@
 import os
 
 
-def make_filename_safe(fname):
+def _make_filename_safe(fname):
     safename = fname.replace(".", "_").replace("-", "_")
     if safename[0].isnumeric():
         safename = "_" + safename
     return safename
 
 
-class FileLikeHelper:
+class _FileLikeHelper:
     def __init__(self, pathlike):
         self._fullpath = os.path.abspath(pathlike)
         self._name = os.path.basename(str(self._fullpath))
-        self._safe_name = make_filename_safe(self._name)
+        self._safe_name = _make_filename_safe(self._name)
 
     def __str__(self):
         return str(self._fullpath)
@@ -21,13 +21,13 @@ class FileLikeHelper:
         return self._fullpath
 
 
-class FileInfo(FileLikeHelper):
+class _FileInfo(_FileLikeHelper):
     @property
     def filepath(self):
         return self._fullpath
 
 
-class DirectoryInfo(FileLikeHelper):
+class DirectoryInfo(_FileLikeHelper):
     def __init__(self, pathlike, top_path, max_recursion_level=10):
         super().__init__(pathlike)
         self.___files = []
@@ -36,7 +36,7 @@ class DirectoryInfo(FileLikeHelper):
 
             fullfidir = os.path.join(self._fullpath, file_or_dir)
             if os.path.isfile(fullfidir):
-                newfile = FileInfo(fullfidir)
+                newfile = _FileInfo(fullfidir)
                 setattr(self, newfile._safe_name, newfile)
                 self.___files.append(file_or_dir)
             elif os.path.isdir(fullfidir):
